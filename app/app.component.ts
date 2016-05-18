@@ -1,7 +1,26 @@
 import {Component} from '@angular/core';
+import {HeroesComponent} from './heroes.component'
+import {HeroService} from './hero-service';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+
+@RouteConfig([
+  {
+    path: '/heroes',
+    name: 'Heroes',
+    component: HeroesComponent
+  }
+])
 
 @Component({
-    selector: 'my-app',
-    template: '<h1>My First Angular 2 App</h1>'
+  selector: 'my-app',
+  directives: [ROUTER_DIRECTIVES],
+  providers: [ROUTER_PROVIDERS, HeroService],
+  template: `
+  <h1>{{title}}</h1>
+  <a [routerLink]="['Heroes']">Heroes</a>
+  <router-outlet></router-outlet>`
 })
-export class AppComponent { }
+
+export class AppComponent {
+  title = "Tour of Heroes"
+}
